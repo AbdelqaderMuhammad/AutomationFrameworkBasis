@@ -1,0 +1,5 @@
+[TRACE] 2021-02-06 18:43:42.174 [main] demo - this is a trace message
+[INFO ] 2021-02-06 18:43:42.192 [main] demo - this is a info message
+[WARN ] 2021-02-06 18:43:42.193 [main] demo - this is a warn message
+[ERROR] 2021-02-06 18:43:42.194 [main] demo - this is an error message
+[FATAL] 2021-02-06 18:43:42.194 [main] demo - this is a fatal message

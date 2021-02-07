@@ -1,4 +1,4 @@
-package tests;
+package Base;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
@@ -6,14 +6,14 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
+import org.testng.annotations.Optional;
 
 public class TestBase {
 
     public static WebDriver driver;
 
-    @BeforeSuite
+    @BeforeSuite(alwaysRun = true)
     @Parameters({"browser"})
     public void startDriver(@Optional("chrome") String browserName) {
 
@@ -30,9 +30,9 @@ public class TestBase {
 
     }
 
-    @AfterSuite
+    @AfterSuite(enabled = false)
     public void stopDriver() {
-        driver.close() ;
+        driver.close();
     }
 
 
