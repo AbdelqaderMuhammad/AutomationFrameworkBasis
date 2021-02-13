@@ -2,9 +2,9 @@ package pages;
 import Base.PageBase;
 import org.openqa.selenium.WebDriver;
 
-public class TestPage extends PageBase {
+public class PageTemplate extends PageBase {
 
-    public TestPage(WebDriver driver) {
+    public PageTemplate(WebDriver driver) {
         super(driver);
     }
 
