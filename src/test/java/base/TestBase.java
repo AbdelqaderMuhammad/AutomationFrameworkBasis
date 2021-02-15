@@ -1,4 +1,4 @@
-package Base;
+package base;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.Dimension;
@@ -9,10 +9,12 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Optional;
+import pages.HomePage;
 
 public class TestBase {
 
     public static WebDriver driver;
+    protected HomePage homePage ;
 
     @BeforeSuite(enabled = false)
     @Parameters({"browser"})
@@ -37,8 +39,9 @@ public class TestBase {
         driver = new ChromeDriver() ;
         driver.get("https://the-internet.herokuapp.com/") ;
         driver.manage().window().maximize();
+        homePage = new HomePage(driver) ;
         // to put the size of an iphone
-//        driver.manage().window().setSize(new Dimension(375, 812));
+        //  driver.manage().window().setSize(new Dimension(375, 812));
     }
 
 

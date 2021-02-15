@@ -1,6 +1,6 @@
 package tests;
 
-import Base.TestBase;
+import base.TestBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -21,7 +21,6 @@ public class FindElementExamples extends TestBase {
         MenuElementBtn.click();
         List<WebElement> options = driver.findElements(By.cssSelector("ul > li")) ;
         System.out.println(options.size());
-
     }
 
 
