@@ -1,6 +1,7 @@
 package Base;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -13,7 +14,7 @@ public class TestBase {
 
     public static WebDriver driver;
 
-    @BeforeSuite(alwaysRun = true)
+    @BeforeSuite(enabled = false)
     @Parameters({"browser"})
     public void startDriver(@Optional("chrome") String browserName) {
 
@@ -29,6 +30,17 @@ public class TestBase {
         driver.navigate().to("https://www.google.com/");
 
     }
+
+    @BeforeSuite
+    public void setUp() {
+        System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
+        driver = new ChromeDriver() ;
+        driver.get("https://the-internet.herokuapp.com/") ;
+        driver.manage().window().maximize();
+        // to put the size of an iphone
+//        driver.manage().window().setSize(new Dimension(375, 812));
+    }
+
 
     @AfterSuite(enabled = false)
     public void stopDriver() {
