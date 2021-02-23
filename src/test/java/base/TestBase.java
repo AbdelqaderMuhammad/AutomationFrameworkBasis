@@ -1,20 +1,25 @@
 package base;
 
+import com.google.common.io.Files;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Optional;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.testng.ITestResult;
+import org.testng.annotations.*;
 import pages.HomePage;
+import utils.EventReporter;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class TestBase {
 
-    public static WebDriver driver;
-    protected HomePage homePage ;
+    protected HomePage homePage;
+    private EventFiringWebDriver driver;
 
     @BeforeSuite(enabled = false)
     @Parameters({"browser"})
@@ -22,10 +27,10 @@ public class TestBase {
 
         if (browserName.equalsIgnoreCase("chrome")) {
             WebDriverManager.chromedriver().setup();
-            driver = new ChromeDriver();
+            driver = new EventFiringWebDriver(new ChromeDriver());
         } else if (browserName.equalsIgnoreCase("firefox")) {
             WebDriverManager.firefoxdriver().setup();
-            driver = new FirefoxDriver();
+            driver = new EventFiringWebDriver(new FirefoxDriver());
         }
 
         driver.manage().window().maximize();
@@ -33,19 +38,39 @@ public class TestBase {
 
     }
 
-    @BeforeSuite
+    @BeforeClass
     public void setUp() {
         System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
-        driver = new ChromeDriver() ;
-        driver.get("https://the-internet.herokuapp.com/") ;
+        driver = new EventFiringWebDriver(new ChromeDriver());
+        driver.register(new EventReporter());
+        goHome();
         driver.manage().window().maximize();
-        homePage = new HomePage(driver) ;
+        driver.manage().timeouts().pageLoadTimeout(4, TimeUnit.SECONDS);
+//        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         // to put the size of an iphone
         //  driver.manage().window().setSize(new Dimension(375, 812));
     }
 
+    @BeforeMethod
+    public void goHome() {
+        driver.get("https://the-internet.herokuapp.com/");
+        homePage = new HomePage(driver);
+    }
 
-    @AfterSuite(enabled = false)
+    @AfterMethod
+    public void recordFailure(ITestResult result) {
+        if (ITestResult.FAILURE == result.getStatus()) {
+            try {
+                var camera = (TakesScreenshot) driver;
+                File screenshot = camera.getScreenshotAs(OutputType.FILE);
+                Files.move(screenshot, new File("resources/screenshots/" + result.getName() + ".png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @AfterClass(enabled = false)
     public void stopDriver() {
         driver.close();
     }
