@@ -51,16 +51,18 @@ public class restAssuredTests {
     @Test
     public void requestUsZipCode90210_checkPlaceNameInResponseBody_expectBeverlyHills() {
         given().
-                when().
-                get("http://zippopotam.us/us/90210").
-                then().
+        when().
+                get("http://zippopotam.us/us/90210").then().
                 assertThat().body("places[0].'place name'", equalTo("Beverly Hills"));
 
     }
 
+    /**
+     *  <<<< 1- A method to get the status code of a request >>>>
+     */
     @Test
     public void requestUsZipCode90210_checkStatusCode_expectHttp200() {
-        given().when().get("http://zippopotam.us/us/90210").then().assertThat().statusCode(200);
+        given().when().get("http://zippopotam.us/us/90210").then().assertThat().statusCode(200) ;
     }
 
     @Test
