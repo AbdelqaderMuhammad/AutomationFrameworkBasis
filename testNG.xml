@@ -7,7 +7,7 @@
         <classes>
             <class name="tests.test">
                 <methods>
-                    <include name="method"/>
+                    <include name=""/>
                 </methods>
             </class>
         </classes>

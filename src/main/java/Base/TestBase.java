@@ -13,7 +13,7 @@ public class TestBase {
 
     public static WebDriver driver;
 
-    @BeforeSuite(alwaysRun = true)
+    @BeforeSuite(alwaysRun = false)
     @Parameters({"browser"})
     public void startDriver(@Optional("chrome") String browserName) {
 

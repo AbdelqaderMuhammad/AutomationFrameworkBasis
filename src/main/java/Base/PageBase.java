@@ -1,16 +1,16 @@
 package Base;
 
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
 public class PageBase {
 
-    protected WebDriver driver ;
+    protected WebDriver driver;
 
     public PageBase(WebDriver driver) {
-        PageFactory.initElements(driver, this) ;
+        PageFactory.initElements(driver, this);
     }
-
 
 
 }
