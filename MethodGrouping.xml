@@ -1,0 +1,19 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="Regression in grouping">
+    <parameter name="browser" value="chrome"/>
+    <test name="method groups">
+
+        <classes>
+            <class name="tests.methodGrouping">
+                <methods>
+                    <include name="testMethod1"/>
+                    <exclude name="testMethod2"/>
+                </methods>
+            </class>
+        </classes>
+
+        
+
+    </test>
+</suite>

@@ -53,6 +53,12 @@
         </dependency>
 
 
+        <dependency>
+            <groupId>com.github.sdrss</groupId>
+            <artifactId>reportng</artifactId>
+            <version>2.6.1</version>
+        </dependency>
+
 
 
     </dependencies>
