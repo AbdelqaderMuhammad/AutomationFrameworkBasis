@@ -1,14 +1,11 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
-<suite name="Regression Suite">
+<suite name="cucumber testNG">
     <parameter name="browser" value="chrome"/>
-    <test name="Regression Test">
+    <test name="google search testing">
 
         <classes>
-            <class name="tests.test">
-                <methods>
-                    <include name=""/>
-                </methods>
+            <class name="tests.runner.googleSearchRunner">
             </class>
         </classes>
     </test>
